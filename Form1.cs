@@ -25,14 +25,23 @@ namespace BattleShip
                 for (int j = 0; j < 10; j++)
                 {
                     Button btnGame = new Button();
-                    btnGame.Text = "";
+                    btnGame.Text = "X";
                     btnGame.Width = width;
                     btnGame.Height = width;
+                    btnGame.Tag = (i, j);
                     btnGame.Left = j * (width + space);
                     btnGame.Top = i * (width + space);
-                    this.Controls.Add(btnGame);
+                    btnGame.Click += btnGame_Click;
+                    panelGrille.Controls.Add(btnGame);
                 }
             }
+        }
+        void btnGame_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            var (ligne, colonne) = ((int, int))btn.Tag;
+
+            MessageBox.Show($"Bouton à la ligne {ligne}, {colonne} a été pressé");
         }
     }
 }
