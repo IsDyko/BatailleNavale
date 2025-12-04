@@ -8,3 +8,13 @@ D:\Code\BattleShip\obj\Debug\BattleShip.csproj.CoreCompileInputs.cache
 D:\Code\BattleShip\obj\Debug\BattleShip.exe
 D:\Code\BattleShip\obj\Debug\BattleShip.pdb
 D:\Code\BattleShip\obj\Debug\BattleShip.Form1.resources
+C:\Users\pf85arl\Source\Repos\BatailleNavale\bin\Debug\BattleShip.exe.config
+C:\Users\pf85arl\Source\Repos\BatailleNavale\bin\Debug\BattleShip.exe
+C:\Users\pf85arl\Source\Repos\BatailleNavale\bin\Debug\BattleShip.pdb
+C:\Users\pf85arl\Source\Repos\BatailleNavale\obj\Debug\BattleShip.csproj.AssemblyReference.cache
+C:\Users\pf85arl\Source\Repos\BatailleNavale\obj\Debug\BattleShip.Form1.resources
+C:\Users\pf85arl\Source\Repos\BatailleNavale\obj\Debug\BattleShip.Properties.Resources.resources
+C:\Users\pf85arl\Source\Repos\BatailleNavale\obj\Debug\BattleShip.csproj.GenerateResource.cache
+C:\Users\pf85arl\Source\Repos\BatailleNavale\obj\Debug\BattleShip.csproj.CoreCompileInputs.cache
+C:\Users\pf85arl\Source\Repos\BatailleNavale\obj\Debug\BattleShip.exe
+C:\Users\pf85arl\Source\Repos\BatailleNavale\obj\Debug\BattleShip.pdb
