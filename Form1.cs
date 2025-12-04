@@ -4,6 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
+using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,7 +16,6 @@ namespace BattleShip
 {
     public partial class Form1 : Form
     {
-        // 
         const int WIDTH = 50;
         const int SPACE = 2;
         const int GRID_SIZE = 10;
@@ -24,6 +26,9 @@ namespace BattleShip
         Random random;
         List<Ship> ships { get; set; }
         HashSet<(int line, int column)> hit { get; set; }
+        Timer victoryTimer;
+        int animationStep = 0;
+
 
         /// <summary>
         /// Constructeur
@@ -31,6 +36,11 @@ namespace BattleShip
         public Form1()
         {
             InitializeComponent();
+
+            victoryTimer = new Timer();
+            victoryTimer.Interval = 50; // vitesse de l’animation (50 ms)
+            victoryTimer.Tick += VictoryTimer_Tick;
+
 
             gridButton = new Button[GRID_SIZE, GRID_SIZE];
             grid = new int[GRID_SIZE, GRID_SIZE];
@@ -50,11 +60,13 @@ namespace BattleShip
         {
             public string Name { get; set; }
             public int Size { get; set; }
+            public int Id { get; set; }
 
-            public Ship(string name, int size)
+            public Ship(string name, int size, int id)
             {
                 Name = name;
                 Size = size;
+                Id = id;
             }
         }
 
@@ -97,10 +109,10 @@ namespace BattleShip
             };
 
             int shipId = 1;
-            foreach (var (name, size) in shiptypes)
+            foreach (var ship in shiptypes)
             {
-                ships.Add(new Ship(name, size));
-                PlaceShipOnGrid(shipId, size);
+                ships.Add(new Ship(ship.name, ship.size, shipId));
+                PlaceShipOnGrid(shipId, ship.size);
                 shipId++;
             }
         }
@@ -189,15 +201,16 @@ namespace BattleShip
             return true;
         }
 
-        private bool IsSunk()
+        private bool IsSunk(int shipId)
         {
-            return false;
-        }
+            // Compte les cases des bateaux
+            int touchedParts = hit.Count(pos => grid[pos.line, pos.column] == shipId);
 
-        //private bool IsHit(int line, int column)
-        //{
-        //    if (Position.Contain)
-        //}
+            // Retrouve quel bateau est-ce
+            Ship ship = ships.First(s => s.Id == shipId);
+
+            return touchedParts >= ship.Size;
+        }
 
         /// <summary>
         /// Gestion du click sur les boutons de la grille
@@ -217,6 +230,49 @@ namespace BattleShip
                 {
                     btn.BackColor = Color.Red;
                     btn.Text = "X";
+
+                    // On enregistre le tir comme "touché"
+                    hit.Add((line, column));
+
+                    // Récupérer l'id du bateau touché
+                    int shipId = grid[line, column];
+
+                    // Vérifier s'il est coulé
+                    if (IsSunk(shipId))
+                    {
+                        var ship = ships.First(s => s.Id == shipId);
+
+                        switch (shipId)
+                        {
+                            case 1:
+                                label2.Text = "Porte-avions: X";
+                                playSimpleSound();
+                                break;
+                            case 2:
+                                label3.Text = "Croiseur: X";
+                                playSimpleSound();
+                                break;
+                            case 3:
+                                label4.Text = "Contre-Torpilleur: X";
+                                playSimpleSound();
+                                break;
+                            case 4:
+                                label5.Text = "Torpilleur: X";
+                                playSimpleSound();
+                                break;
+                            case 5:
+                                label6.Text = "Sous-marin: X";
+                                playSimpleSound();
+                                break;
+                            default:
+                                break;
+                        }
+                        if (Victory())
+                        {
+                            playWinSound();
+                            victoryTimer.Start();
+                        }
+                    }
                 }
                 else
                 {
@@ -224,6 +280,76 @@ namespace BattleShip
                     btn.Text = "O";
                 }
             }
+        }
+
+        private bool Victory()
+        {
+            return ships.All(ship => IsSunk(ship.Id));
+        }
+
+        private void VictoryTimer_Tick(object sender, EventArgs e)
+        {
+            // Animation progressive : chaque tick colore 1 ligne
+            if (animationStep < GRID_SIZE)
+            {
+                for (int col = 0; col < GRID_SIZE; col++)
+                {
+                    gridButton[animationStep, col].BackColor = Color.LimeGreen;
+                }
+                animationStep++;
+            }
+            else
+            {
+                victoryTimer.Stop();
+                animationStep = 0;
+
+                // Après animation → afficher la fenêtre de victoire
+                VictoryForm victory = new VictoryForm();
+                if (victory.ShowDialog() == DialogResult.OK)
+                {
+                    RestartGame();
+                }
+            }
+        }
+        private void RestartGame()
+        {
+            // Reset grid data
+            Array.Clear(grid, 0, grid.Length);
+            Array.Clear(shots, 0, shots.Length);
+            hit.Clear();
+
+            // Reset boutons
+            for (int i = 0; i < GRID_SIZE; i++)
+            {
+                for (int j = 0; j < GRID_SIZE; j++)
+                {
+                    gridButton[i, j].BackColor = Color.LightBlue;
+                    gridButton[i, j].Text = "";
+                }
+            }
+
+            // Reset labels
+            label2.Text = "Porte-avions: 1";
+            label3.Text = "Croiseur: 1";
+            label4.Text = "Contre-Torpilleur: 1";
+            label5.Text = "Sous-marin: 1";
+            label6.Text = "Torpilleur: 1";
+
+            // Reset ships list + re-placement
+            ships.Clear();
+            InitializeShips();
+        }
+
+        private void playSimpleSound()
+        {
+            SoundPlayer player = new SoundPlayer(@"D:\Code\BattleShip\explosion-01.wav");
+            player.Play();
+        }
+
+        private void playWinSound()
+        {
+            SoundPlayer player1 = new SoundPlayer(@"D:\Code\BattleShip\victory.wav");
+            player1.Play();
         }
     }
 }

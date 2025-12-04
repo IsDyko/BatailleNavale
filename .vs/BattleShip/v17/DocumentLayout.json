@@ -1,18 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\pf85arl\\source\\repos\\BatailleNavale\\",
+  "WorkspaceRootPath": "D:\\Code\\BattleShip\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|c:\\users\\pf85arl\\source\\repos\\bataillenavale\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|C:\\Users\\pf85arl\\source\\repos\\BatailleNavale\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|D:\\Code\\BattleShip\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|C:\\Users\\pf85arl\\source\\repos\\BatailleNavale\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|d:\\code\\battleship\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|d:\\code\\battleship\\victoryform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|solutionrelative:victoryform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,51 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\pf85arl\\source\\repos\\BatailleNavale\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\pf85arl\\source\\repos\\BatailleNavale\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAqwA4AAAAYAAAA",
+              "Title": "VictoryForm.cs",
+              "DocumentMoniker": "D:\\Code\\BattleShip\\VictoryForm.cs",
+              "RelativeDocumentMoniker": "VictoryForm.cs",
+              "ToolTip": "D:\\Code\\BattleShip\\VictoryForm.cs",
+              "RelativeToolTip": "VictoryForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-27T08:05:08.616Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\pf85arl\\source\\repos\\BatailleNavale\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\pf85arl\\source\\repos\\BatailleNavale\\Form1.cs",
-              "RelativeToolTip": "Form1.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-27T07:56:39.629Z",
+              "WhenOpened": "2025-12-04T09:42:50.008Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\pf85arl\\source\\repos\\BatailleNavale\\Form1.cs",
+              "Title": "Form1.cs",
+              "DocumentMoniker": "D:\\Code\\BattleShip\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\pf85arl\\source\\repos\\BatailleNavale\\Form1.cs [Design]",
+              "ToolTip": "D:\\Code\\BattleShip\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAAEwBAAAAAAAAAAAawF4BAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-13T09:55:31.664Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "D:\\Code\\BattleShip\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "D:\\Code\\BattleShip\\Form1.cs [Design]",
               "RelativeToolTip": "Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T07:52:55.006Z"
+              "WhenOpened": "2025-11-13T07:52:55.006Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }
