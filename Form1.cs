@@ -7,41 +7,223 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.LinkLabel;
 
 namespace BattleShip
 {
     public partial class Form1 : Form
     {
+        // 
+        const int WIDTH = 50;
+        const int SPACE = 2;
+        const int GRID_SIZE = 10;
+        const int SHIP_SPACE = 1;
+        int[,] grid;
+        bool[,] shots;
+        Button[,] gridButton;
+        Random random;
+        List<Ship> ships { get; set; }
+        HashSet<(int line, int column)> hit { get; set; }
 
-        //Creation des objets
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
-            int width = 50;
-            int space = 2;
 
-            for (int i = 0; i < 10; i++)
+            gridButton = new Button[GRID_SIZE, GRID_SIZE];
+            grid = new int[GRID_SIZE, GRID_SIZE];
+            shots = new bool[GRID_SIZE, GRID_SIZE];
+            random = new Random();
+            ships = new List<Ship>();
+            hit = new HashSet<(int line, int column)>();
+
+            createGrid();
+            InitializeShips();
+        }
+
+        /// <summary>
+        /// Modèle de bateau
+        /// </summary>
+        public class Ship
+        {
+            public string Name { get; set; }
+            public int Size { get; set; }
+
+            public Ship(string name, int size)
             {
-                for (int j = 0; j < 10; j++)
+                Name = name;
+                Size = size;
+            }
+        }
+
+        /// <summary>
+        /// Création de la grille de jeu
+        /// </summary>
+        private void createGrid()
+        {
+            for (int i = 0; i < GRID_SIZE; i++)
+            {
+                for (int j = 0; j < GRID_SIZE; j++)
                 {
                     Button btnGame = new Button();
-                    btnGame.Text = "X";
-                    btnGame.Width = width;
-                    btnGame.Height = width;
+                    btnGame.Text = "";
+                    btnGame.Width = WIDTH;
+                    btnGame.Height = WIDTH;
                     btnGame.Tag = (i, j);
-                    btnGame.Left = j * (width + space);
-                    btnGame.Top = i * (width + space);
+                    btnGame.Left = j * (WIDTH + SPACE);
+                    btnGame.Top = i * (WIDTH + SPACE);
+                    btnGame.BackColor = Color.LightBlue;
                     btnGame.Click += btnGame_Click;
                     panelGrille.Controls.Add(btnGame);
+                    gridButton[i, j] = btnGame;
                 }
             }
         }
+
+        /// <summary>
+        /// Initialisation des bateaux
+        /// </summary>
+        private void InitializeShips()
+        {
+            var shiptypes = new List<(string name, int size)>
+            {
+                ("Porte-avions", 5),
+                ("Croiseur", 4),
+                ("Contre-torpilleur", 3),
+                ("Sous-marin", 3),
+                ("Torpilleur", 2)
+            };
+
+            int shipId = 1;
+            foreach (var (name, size) in shiptypes)
+            {
+                ships.Add(new Ship(name, size));
+                PlaceShipOnGrid(shipId, size);
+                shipId++;
+            }
+        }
+
+        /// <summary>
+        /// Placement aléatoire des bateaux sur la grille
+        /// </summary>
+        /// <param name="shipId"></param>
+        /// <param name="size"></param>
+        void PlaceShipOnGrid(int shipId, int size)
+        {
+            bool placed = false;
+
+            while (!placed)
+            {
+                bool horizontal = random.Next(2) == 0;
+                int row = random.Next(GRID_SIZE);
+                int col = random.Next(GRID_SIZE);
+
+                if (CanPlaceShip(row, col, size, horizontal))
+                {
+                    for (int i = 0; i < size; i++)
+                    {
+                        if (horizontal)
+                            grid[row, col + i] = shipId;
+                        else
+                            grid[row + i, col] = shipId;
+                    }
+                    placed = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Vérifie si un bateau peut être placé à la position donnée
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        /// <param name="size"></param>
+        /// <param name="horizontal"></param>
+        /// <returns></returns>
+        private bool CanPlaceShip(int row, int col, int size, bool horizontal)
+        {
+            int startRow = row - 1;
+            int endRow = horizontal ? row + 1 : row + size;
+            int startCol = col - 1;
+            int endCol = horizontal ? col + size : col + 1;
+
+            // Parcours de la zone autour du bateau (y compris diagonales)
+            for (int r = startRow; r <= endRow; r++)
+            {
+                for (int c = startCol; c <= endCol; c++)
+                {
+                    // Vérifie que la case est dans la grille
+                    if (r >= 0 && r < GRID_SIZE && c >= 0 && c < GRID_SIZE)
+                    {
+                        // Vérifie si une case est occupée
+                        if (horizontal)
+                        {
+                            if (c >= col && c < col + size && r == row) continue; // Ignore les cases du bateau
+                        }
+                        else
+                        {
+                            if (r >= row && r < row + size && c == col) continue; // Ignore les cases du bateau
+                        }
+                        if (grid[r, c] != 0) return false;
+                    }
+                }
+            }
+            // Vérifie que le bateau ne sort pas de la grille
+            if (horizontal)
+            {
+                if (col + size > GRID_SIZE) return false;
+            }
+            else
+            {
+                if (row + size > GRID_SIZE) return false;
+            }
+            // Vérifie que les cases du bateau sont libres
+            for (int i = 0; i < size; i++)
+            {
+                int r = horizontal ? row : row + i;
+                int c = horizontal ? col + i : col;
+                if (grid[r, c] != 0) return false;
+            }
+            return true;
+        }
+
+        private bool IsSunk()
+        {
+            return false;
+        }
+
+        //private bool IsHit(int line, int column)
+        //{
+        //    if (Position.Contain)
+        //}
+
+        /// <summary>
+        /// Gestion du click sur les boutons de la grille
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void btnGame_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            var (ligne, colonne) = ((int, int))btn.Tag;
+            var (line, column) = ((int, int))btn.Tag;
 
-            MessageBox.Show($"Bouton à la ligne {ligne}, {colonne} a été pressé");
+            if (!shots[line, column])
+            {
+                shots[line, column] = true;
+
+                if (grid[line, column] > 0)
+                {
+                    btn.BackColor = Color.Red;
+                    btn.Text = "X";
+                }
+                else
+                {
+                    btn.BackColor = Color.White;
+                    btn.Text = "O";
+                }
+            }
         }
     }
 }
