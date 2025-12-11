@@ -34,7 +34,7 @@ namespace BattleShip
                 Text = "Victoire! Tous les bateaux ont été coulés!",
                 AutoSize = false,                               // Ne redimensionne pas automatiquement
                 TextAlign = ContentAlignment.MiddleCenter,      // Centre le texte
-                Font = new Font("Arial", 11, FontStyle.Bold),   // Définition de la police
+                Font = new Font("Segoe UI", 11, FontStyle.Bold),// Définition de la police
                 Dock = DockStyle.Top,                           // Ancre en haut
                 Height = 60                                     // Hauteur du label
             };
@@ -45,7 +45,9 @@ namespace BattleShip
                 Text = "Rejouer",               // Texte du bouton
                 Width = 100,                    // Largeur du bouton
                 Height = 35,                    // Hauteur du bouton
-                DialogResult = DialogResult.OK  // Résultat de dialogue OK
+                DialogResult = DialogResult.OK, // Résultat de dialogue OK
+                Font = new Font("Segoe UI", 9, FontStyle.Regular)     // Définition de la police
+
             };
             btnReplay.Top = 70;                 // Position verticale
             btnReplay.Left = (ClientSize.Width - btnReplay.Width) / 2; // Centre horizontalement
