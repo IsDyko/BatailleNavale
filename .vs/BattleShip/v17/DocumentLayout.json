@@ -1,17 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Code\\BattleShip\\",
+  "WorkspaceRootPath": "D:\\ETML\\Trimestre 2\\P_Prog\\BatailleNavale\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|D:\\Code\\BattleShip\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|d:\\code\\battleship\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|d:\\etml\\trimestre 2\\p_prog\\bataillenavale\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|d:\\code\\battleship\\victoryform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|D:\\ETML\\Trimestre 2\\P_Prog\\BatailleNavale\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|D:\\ETML\\Trimestre 2\\P_Prog\\BatailleNavale\\victoryform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6A92E73D-709B-4C48-B1D5-3F93BAFFE181}|BattleShip.csproj|solutionrelative:victoryform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -22,45 +22,55 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "VictoryForm.cs",
-              "DocumentMoniker": "D:\\Code\\BattleShip\\VictoryForm.cs",
+              "DocumentMoniker": "D:\\ETML\\Trimestre 2\\P_Prog\\BatailleNavale\\VictoryForm.cs",
               "RelativeDocumentMoniker": "VictoryForm.cs",
-              "ToolTip": "D:\\Code\\BattleShip\\VictoryForm.cs",
+              "ToolTip": "D:\\ETML\\Trimestre 2\\P_Prog\\BatailleNavale\\VictoryForm.cs",
               "RelativeToolTip": "VictoryForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-04T09:42:50.008Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-04T09:42:50.008Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Form1.cs",
-              "DocumentMoniker": "D:\\Code\\BattleShip\\Form1.cs",
+              "DocumentMoniker": "D:\\ETML\\Trimestre 2\\P_Prog\\BatailleNavale\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "D:\\Code\\BattleShip\\Form1.cs",
+              "ToolTip": "D:\\ETML\\Trimestre 2\\P_Prog\\BatailleNavale\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAAEwBAAAAAAAAAAAawF4BAABSAAAAAAAAAA==",
+              "ViewState": "AQIAAEcBAAAAAAAAAADwv1ABAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-13T09:55:31.664Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "D:\\Code\\BattleShip\\Form1.cs",
+              "DocumentMoniker": "D:\\ETML\\Trimestre 2\\P_Prog\\BatailleNavale\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "D:\\Code\\BattleShip\\Form1.cs [Design]",
+              "ToolTip": "D:\\ETML\\Trimestre 2\\P_Prog\\BatailleNavale\\Form1.cs [Design]",
               "RelativeToolTip": "Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T07:52:55.006Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-11-13T07:52:55.006Z"
             }
           ]
         }

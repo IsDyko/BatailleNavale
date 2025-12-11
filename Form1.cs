@@ -342,13 +342,13 @@ namespace BattleShip
 
         private void playSimpleSound()
         {
-            SoundPlayer player = new SoundPlayer(@"D:\Code\BattleShip\explosion-01.wav");
+            SoundPlayer player = new SoundPlayer(@"./../../explosion-01.wav");
             player.Play();
         }
 
         private void playWinSound()
         {
-            SoundPlayer player1 = new SoundPlayer(@"D:\Code\BattleShip\victory.wav");
+            SoundPlayer player1 = new SoundPlayer(@"./../../victory.wav");
             player1.Play();
         }
     }
