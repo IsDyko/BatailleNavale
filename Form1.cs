@@ -28,6 +28,8 @@ namespace BattleShip
         HashSet<(int line, int column)> hit { get; set; }
         Timer victoryTimer;
         int animationStep = 0;
+        Timer gameTimer;
+        int elapsedSeconds = 0;
 
 
         /// <summary>
@@ -40,6 +42,11 @@ namespace BattleShip
             victoryTimer = new Timer();
             victoryTimer.Interval = 50; // vitesse de l’animation (50 ms)
             victoryTimer.Tick += VictoryTimer_Tick;
+
+            gameTimer = new Timer();
+            gameTimer.Interval = 1000;
+            gameTimer.Tick += GameTimer_Tick;
+            gameTimer.Start();
 
 
             gridButton = new Button[GRID_SIZE, GRID_SIZE];
@@ -206,7 +213,7 @@ namespace BattleShip
             // Compte les cases des bateaux
             int touchedParts = hit.Count(pos => grid[pos.line, pos.column] == shipId);
 
-            // Retrouve quel bateau est-ce
+            // Retrouve quel bateau c'est
             Ship ship = ships.First(s => s.Id == shipId);
 
             return touchedParts >= ship.Size;
@@ -289,7 +296,7 @@ namespace BattleShip
 
         private void VictoryTimer_Tick(object sender, EventArgs e)
         {
-            // Animation progressive : chaque tick colore 1 ligne
+            // Animation progressive
             if (animationStep < GRID_SIZE)
             {
                 for (int col = 0; col < GRID_SIZE; col++)
@@ -303,7 +310,7 @@ namespace BattleShip
                 victoryTimer.Stop();
                 animationStep = 0;
 
-                // Après animation → afficher la fenêtre de victoire
+                // Après animation / afficher la fenêtre de victoire
                 VictoryForm victory = new VictoryForm();
                 if (victory.ShowDialog() == DialogResult.OK)
                 {
@@ -313,12 +320,12 @@ namespace BattleShip
         }
         private void RestartGame()
         {
-            // Reset grid data
+            // Réinitialisation
             Array.Clear(grid, 0, grid.Length);
             Array.Clear(shots, 0, shots.Length);
             hit.Clear();
 
-            // Reset boutons
+            // Réinitialisation bouttons
             for (int i = 0; i < GRID_SIZE; i++)
             {
                 for (int j = 0; j < GRID_SIZE; j++)
@@ -328,14 +335,14 @@ namespace BattleShip
                 }
             }
 
-            // Reset labels
+            // Réinitialisation labels
             label2.Text = "Porte-avions: 1";
             label3.Text = "Croiseur: 1";
             label4.Text = "Contre-Torpilleur: 1";
             label5.Text = "Sous-marin: 1";
             label6.Text = "Torpilleur: 1";
 
-            // Reset ships list + re-placement
+            // Réinitialisation des bateaux
             ships.Clear();
             InitializeShips();
         }
@@ -351,5 +358,19 @@ namespace BattleShip
             SoundPlayer player1 = new SoundPlayer(@"D:\Code\BattleShip\victory.wav");
             player1.Play();
         }
+
+        private void GameTimer_Tick(object sender, EventArgs e)
+        {
+            elapsedSeconds++;
+            timerLabel.Text = FormatTime(elapsedSeconds);
+        }
+
+        private string FormatTime(int seconds)
+        {
+            int minutes = seconds / 60;
+            int secs = seconds % 60;
+            return $"{minutes:00}:{secs:00}";
+        }
+
     }
 }

@@ -40,7 +40,7 @@ namespace BattleShip
             btnReplay.Left = (ClientSize.Width - btnReplay.Width) / 2;
             btnReplay.Anchor = AnchorStyles.Top;
 
-            // Quand on clique → fermer avec OK
+            // Quand on clique / fermer avec OK
             btnReplay.Click += (sender, e) =>
             {
                 DialogResult = DialogResult.OK;
