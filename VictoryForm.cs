@@ -60,7 +60,7 @@ namespace BattleShip
                 Close();
             };
 
-            // Bouton Rejouer dans la fenetre de victoire
+            // Bouton quitter le programme
             Button btnExit = new Button
             {
                 Text = "Quitter",               // Texte du bouton
