@@ -1,7 +1,7 @@
 ﻿///
 /// ETML
 /// Author: Diogo Martins | Thibault Gugler - FID1
-/// Date: 11.12.25
+/// Date: 18.12.25
 /// 
 /// Bataille navale Solo - Fenêtre de victoire
 /// 
@@ -60,7 +60,7 @@ namespace BattleShip
                 Close();
             };
 
-            // Bouton Rejouer dans la fenetre de victoire
+            // Bouton quitter le programme
             Button btnExit = new Button
             {
                 Text = "Quitter",               // Texte du bouton
