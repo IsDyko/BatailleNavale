@@ -50,7 +50,7 @@ namespace BattleShip
 
             };
             btnReplay.Top = 70;                 // Position verticale
-            btnReplay.Left = (ClientSize.Width - btnReplay.Width) / 2; // Centre horizontalement
+            btnReplay.Left = ((ClientSize.Width / 2) - btnReplay.Width) - 5; // Met l
             btnReplay.Anchor = AnchorStyles.Top;// Ancre en haut
 
             // Événement clic du bouton Rejouer
@@ -60,8 +60,29 @@ namespace BattleShip
                 Close();
             };
 
+            // Bouton Rejouer dans la fenetre de victoire
+            Button btnExit = new Button
+            {
+                Text = "Quitter",               // Texte du bouton
+                Width = 100,                    // Largeur du bouton
+                Height = 35,                    // Hauteur du bouton
+                DialogResult = DialogResult.OK, // Résultat de dialogue OK
+                Font = new Font("Segoe UI", 9, FontStyle.Regular)     // Définition de la police
+
+            };
+            btnExit.Top = 70;                 // Position verticale
+            btnExit.Left = ((ClientSize.Width + (btnExit.Width/5)) / 2) - 5; // Centre horizontalement
+            btnExit.Anchor = AnchorStyles.Top;// Ancre en haut
+
+            btnExit.Click += (sender, e) =>
+            {
+                DialogResult = DialogResult.OK;
+                Application.Exit();
+            };
+
             Controls.Add(labelWin);
             Controls.Add(btnReplay);
+            Controls.Add(btnExit);
 
             // Touche Entrée = Rejouer
             AcceptButton = btnReplay;
