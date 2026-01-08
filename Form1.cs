@@ -1,7 +1,7 @@
 ﻿///
 /// ETML
 /// Author: Diogo Martins | Thibault Gugler - FID1
-/// Date: 18.12.25
+/// Date: 08.01.26
 /// 
 /// Bataille navale Solo - Code principal
 /// 
@@ -13,6 +13,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Media;
+using System.Net.Security;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Channels;
 using System.Text;
@@ -33,58 +34,62 @@ namespace BattleShip
         bool[,] shots;          // Grille des tirs (true si déjà tiré)
         Button[,] gridButton;   // Tableau des boutons de la grille
         Random random;          // Générateur de nombres aléatoires
-        List<Ship> ships { get; set; }                      // Liste des bateaux
+        List<ShipList> ships { get; set; }                  // Liste des bateaux
         HashSet<(int line, int column)> hit { get; set; }   // Ensemble des positions touchées
         Timer victoryTimer;     // Timer pour l'animation de victoire
         int animationStep = 0;  // Étape de l'animation de victoire
-        int elapsedSeconds = 0;
-        Timer gameTimer;
+        int elapsedSeconds = 0; // Temps écoulé en secondes
+        Timer gameTimer;        // Timer pour le chronomètre de jeu
 
         /// <summary>
         /// Constructeur principal de la fenêtre
         /// </summary>
         public Form1()
         {
+            // Initialisation des composants de la fenêtre
             InitializeComponent();
 
-            victoryTimer = new Timer();                 // Initialisation du timer de victoire
-            victoryTimer.Interval = 50;                 // Vitesse de l’animation (50 ms)
-            victoryTimer.Tick += VictoryTimer_Tick;     // Événement à chaque tick
+            victoryTimer = new Timer();                     // Initialisation du timer de victoire
+            victoryTimer.Interval = 50;                     // Vitesse de l’animation (50 ms)
+            victoryTimer.Tick += VictoryTimer_Tick;         // Événement à chaque tick
 
-            gameTimer = new Timer();
-            gameTimer.Interval = 1000;
-            gameTimer.Tick += GameTimer_Tick;
+            gameTimer = new Timer();                        // Initialisation du timer de jeu
+            gameTimer.Interval = 1000;                      // Intervalle de 1 seconde
+            gameTimer.Tick += GameTimer_Tick;               // Événement à chaque tick
 
-            elapsedSeconds = 0;
-            timerLabel.Text = FormatTime(elapsedSeconds);
-            gameTimer.Start();
+            elapsedSeconds = 0;                             // Initialisation du temps écoulé
+            timerLabel.Text = FormatTime(elapsedSeconds);   // Affichage initial du temps
+            gameTimer.Start();                              // Démarre le timer de jeu
 
-            gridButton = new Button[GRID_SIZE, GRID_SIZE];
-            grid = new int[GRID_SIZE, GRID_SIZE];
-            shots = new bool[GRID_SIZE, GRID_SIZE];
-            random = new Random();
-            ships = new List<Ship>();
-            hit = new HashSet<(int line, int column)>();
+            gridButton = new Button[GRID_SIZE, GRID_SIZE];  // Tableau des boutons de la grille
+            grid = new int[GRID_SIZE, GRID_SIZE];           // Grille de jeu
+            shots = new bool[GRID_SIZE, GRID_SIZE];         // Grille des tirs
+            random = new Random();                          // Générateur de nombres aléatoires
+            ships = new List<ShipList>();                   // Liste des bateaux
+            hit = new HashSet<(int line, int column)>();    // Ensemble des positions touchées
 
+            // Création de la grille
             createGrid();
+
+            // Initialisation et placement des bateaux
             InitializeShips();
         }
 
         /// <summary>
         /// Modèle de bateau
         /// </summary>
-        public class Ship
+        public class ShipList
         {
             public string Name { get; set; }
             public int Size { get; set; }
             public int Id { get; set; }
 
             // Constructeur des bateaux en fonctions de leurs propriétés
-            public Ship(string name, int size, int id)
+            public ShipList(string name, int size, int id)
             {
-                Name = name;
-                Size = size;
-                Id = id;
+                Name = name; // Nom du bateau
+                Size = size; // Taille du bateau
+                Id = id;     // Identifiant du bateau
             }
         }
 
@@ -93,17 +98,19 @@ namespace BattleShip
         /// </summary>
         private void createGrid()
         {
+            // Pour chaque colonne
             for (int i = 0; i < GRID_SIZE; i++)
             {
+                // Pour chaque ligne
                 for (int j = 0; j < GRID_SIZE; j++)
                 {
-                    Button btnGame = new Button();
-                    btnGame.Text = "";
-                    btnGame.Width = WIDTH;
-                    btnGame.Height = WIDTH;
+                    Button btnGame = new Button();      // Création d'un nouveau bouton  
+                    btnGame.Text = "";                  // Texte vide        
+                    btnGame.Width = WIDTH;              // Définition de la taille
+                    btnGame.Height = WIDTH;             // Définition de la taille
                     btnGame.Tag = (i, j);               // Stocke la position dans le Tag
-                    btnGame.Left = j * (WIDTH + SPACE);
-                    btnGame.Top = i * (WIDTH + SPACE);
+                    btnGame.Left = j * (WIDTH + SPACE); // Positionnement dans le panel
+                    btnGame.Top = i * (WIDTH + SPACE);  // Positionnement dans le panel
                     btnGame.BackColor = Color.LightBlue;// Définit la couleur par défaut
                     btnGame.Click += btnGame_Click;     // Événement click
                     panelGrille.Controls.Add(btnGame);  // Ajoute le bouton au panel
@@ -119,7 +126,7 @@ namespace BattleShip
         {
             int shipId = 1; // Initialisation de l'ID des bateaux
 
-            // Définition du nom des bateaux avec leurs tailles
+            // Définition des types de bateaux (nom, taille)
             var shiptypes = new List<(string name, int size)>
             {
                 ("Porte-avions", 5),
@@ -132,7 +139,9 @@ namespace BattleShip
             // Placement de chaque bateau
             foreach (var ship in shiptypes)
             {
-                ships.Add(new Ship(ship.name, ship.size, shipId));
+                // Ajoute le bateau à la liste
+                ships.Add(new ShipList(ship.name, ship.size, shipId));
+                // Place le bateau sur la grille
                 PlaceShipOnGrid(shipId, ship.size);
                 shipId++;
             }
@@ -147,16 +156,20 @@ namespace BattleShip
         {
             bool placed = false; // Indicateur de placement
 
+            // Tente de placer le bateau jusqu'à ce que ce soit réussi
             while (!placed)
             {
-                bool horizontal = random.Next(2) == 0;
-                int row = random.Next(GRID_SIZE);
-                int col = random.Next(GRID_SIZE);
+                bool horizontal = random.Next(2) == 0;  // Orientation aléatoire
+                int row = random.Next(GRID_SIZE);       // Ligne de départ aléatoire
+                int col = random.Next(GRID_SIZE);       // Colonne de départ aléatoire
 
+                // Vérifie si le bateau peut être placé à cette position
                 if (CanPlaceShip(row, col, size, horizontal))
                 {
+                    // Place le bateau sur la grille
                     for (int i = 0; i < size; i++)
                     {
+                        // Remplit les cases du bateau avec son ID
                         if (horizontal)
                             grid[row, col + i] = shipId;
                         else
@@ -177,49 +190,38 @@ namespace BattleShip
         /// <returns>True si le placement est possible</returns>
         private bool CanPlaceShip(int row, int col, int size, bool horizontal)
         {
-            int startRow = row - 1;
-            int endRow = horizontal ? row + 1 : row + size;
-            int startCol = col - 1;
-            int endCol = horizontal ? col + size : col + 1;
+            int startRow = row - 1; // Ligne de départ pour la vérification
+            int endRow = horizontal ? row + 1 : row + size; // Ligne de fin pour la vérification
+            int startCol = col - 1; // Colonne de départ pour la vérification
+            int endCol = horizontal ? col + size : col + 1; // Colonne de fin pour la vérification
 
             // Parcours de la zone autour du bateau (y compris diagonales)
             for (int r = startRow; r <= endRow; r++)
             {
+                // Parcours des colonnes
                 for (int c = startCol; c <= endCol; c++)
                 {
                     // Vérifie que la case est dans la grille
                     if (r >= 0 && r < GRID_SIZE && c >= 0 && c < GRID_SIZE)
                     {
-                        // Ignore les cases du bateau lui-même
-                        if (horizontal)
-                        {
-                            if (c >= col && c < col + size && r == row) continue;
-                        }
-                        else
-                        {
-                            if (r >= row && r < row + size && c == col) continue;
-                        }
                         // Si une case autour est occupée, placement impossible
                         if (grid[r, c] != 0) return false;
                     }
                 }
             }
+
             // Vérifie que le bateau ne sort pas de la grille
             if (horizontal)
             {
+                // Vérifie la limite droite
                 if (col + size > GRID_SIZE) return false;
             }
             else
             {
+                // Vérifie la limite basse
                 if (row + size > GRID_SIZE) return false;
             }
-            // Vérifie que les cases du bateau sont libres
-            for (int i = 0; i < size; i++)
-            {
-                int r = horizontal ? row : row + i;
-                int c = horizontal ? col + i : col;
-                if (grid[r, c] != 0) return false;
-            }
+
             return true;
         }
 
@@ -234,8 +236,9 @@ namespace BattleShip
             int touchedParts = hit.Count(pos => grid[pos.line, pos.column] == shipId);
 
             // Retrouve quel bateau est-ce
-            Ship ship = ships.First(s => s.Id == shipId);
+            ShipList ship = ships.First(s => s.Id == shipId);
 
+            // Retourne vrai si toutes les parties du bateau sont touchées
             return touchedParts >= ship.Size;
         }
 
@@ -252,13 +255,13 @@ namespace BattleShip
             // Vérifie si la case a déjà été tirée
             if (!shots[line, column])
             {
-                shots[line, column] = true;
+                shots[line, column] = true; // Marque la case comme tirée
 
                 // Si un bateau est touché
                 if (grid[line, column] > 0)
                 {
-                    btn.BackColor = Color.Red;
-                    btn.Text = "X";
+                    btn.BackColor = Color.Red; // Change la couleur en rouge
+                    btn.Text = "X";            // Affiche un X
 
                     // Enregistre le tir comme "touché"
                     hit.Add((line, column));
@@ -320,6 +323,7 @@ namespace BattleShip
         /// </summary>
         private bool Victory()
         {
+            // Retourne vrai si tous les bateaux sont coulés
             return ships.All(ship => IsSunk(ship.Id));
         }
 
@@ -358,7 +362,7 @@ namespace BattleShip
         /// </summary>
         private void RestartGame()
         {
-            // Reset grid data
+            // Réinitialise les données de la grille
             Array.Clear(grid, 0, grid.Length);
             Array.Clear(shots, 0, shots.Length);
             hit.Clear();
@@ -367,7 +371,7 @@ namespace BattleShip
             timerLabel.Text = FormatTime(elapsedSeconds);
             gameTimer.Start();
 
-            // Reset boutons
+            // Réinitialise les boutons
             for (int i = 0; i < GRID_SIZE; i++)
             {
                 for (int j = 0; j < GRID_SIZE; j++)
@@ -377,14 +381,14 @@ namespace BattleShip
                 }
             }
 
-            // Reset labels
+            // Réinitialise les labels
             label2.Text = "Porte-avions: 1";
             label3.Text = "Croiseur: 1";
             label4.Text = "Contre-Torpilleur: 1";
             label5.Text = "Sous-marin: 1";
             label6.Text = "Torpilleur: 1";
 
-            // Reset ships list + re-placement
+            // Réinitialise la liste des bateaux et leur placement
             ships.Clear();
             InitializeShips();
         }
@@ -407,12 +411,18 @@ namespace BattleShip
             player1.Play();
         }
 
+        /// <summary>
+        /// Gère le tick du timer de jeu (incrémente le temps)
+        /// </summary>
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             elapsedSeconds++;
             timerLabel.Text = FormatTime(elapsedSeconds);
         }
 
+        /// <summary>
+        /// Formate le temps en mm:ss
+        /// </summary>
         private string FormatTime(int seconds)
         {
             int minutes = seconds / 60;

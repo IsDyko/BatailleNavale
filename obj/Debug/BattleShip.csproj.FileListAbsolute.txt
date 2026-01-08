@@ -28,3 +28,13 @@ D:\ETML\Trimestre 2\P_Prog\BatailleNavale\obj\Debug\BattleShip.csproj.GenerateRe
 D:\ETML\Trimestre 2\P_Prog\BatailleNavale\obj\Debug\BattleShip.csproj.CoreCompileInputs.cache
 D:\ETML\Trimestre 2\P_Prog\BatailleNavale\obj\Debug\BattleShip.exe
 D:\ETML\Trimestre 2\P_Prog\BatailleNavale\obj\Debug\BattleShip.pdb
+D:\ETML\Trimestre 2\P_Prog\BatailleNavale_Final\bin\Debug\BattleShip.exe.config
+D:\ETML\Trimestre 2\P_Prog\BatailleNavale_Final\bin\Debug\BattleShip.exe
+D:\ETML\Trimestre 2\P_Prog\BatailleNavale_Final\bin\Debug\BattleShip.pdb
+D:\ETML\Trimestre 2\P_Prog\BatailleNavale_Final\obj\Debug\BattleShip.csproj.AssemblyReference.cache
+D:\ETML\Trimestre 2\P_Prog\BatailleNavale_Final\obj\Debug\BattleShip.Form1.resources
+D:\ETML\Trimestre 2\P_Prog\BatailleNavale_Final\obj\Debug\BattleShip.Properties.Resources.resources
+D:\ETML\Trimestre 2\P_Prog\BatailleNavale_Final\obj\Debug\BattleShip.csproj.GenerateResource.cache
+D:\ETML\Trimestre 2\P_Prog\BatailleNavale_Final\obj\Debug\BattleShip.csproj.CoreCompileInputs.cache
+D:\ETML\Trimestre 2\P_Prog\BatailleNavale_Final\obj\Debug\BattleShip.exe
+D:\ETML\Trimestre 2\P_Prog\BatailleNavale_Final\obj\Debug\BattleShip.pdb
